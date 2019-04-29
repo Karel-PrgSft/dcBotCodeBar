@@ -9,6 +9,21 @@ const client = new Discord.Client();
 const sqlite3 = require('sqlite3').verbose();
 /* #endregion */
 
+/*
+class Student {
+  fullName: string;
+  constructor() {
+    console.log('ebe');
+  }
+  ebe() {
+
+  }
+}
+
+let user: Student = new Student();
+user.ebe();
+*/
+
 /* #region ON BOT STARTED */
 client.on('ready', () => {
   log('Code Bar BOT started!', 'info');
