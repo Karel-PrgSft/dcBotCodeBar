@@ -1,4 +1,5 @@
 ///<reference path="../../node_modules/@types/sqlite3/index.d.ts"/>
+
 import { Loger } from './loger';
 import { sqlite3, Database } from 'sqlite3';
 const sqlite3: sqlite3 = require('sqlite3').verbose();
