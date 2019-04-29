@@ -1,5 +1,5 @@
 /* #region IMPORTY */
-///<reference path="declaration/index.d.ts"/>
+///<reference path="declaration/codeBar.d.ts"/>
 ///<reference path="../node_modules/discord.js/typings/index.d.ts"/>
 import { Message, TextChannel, RichEmbed } from "discord.js";
 import { RaidHeroRow } from 'databaseInterface';
