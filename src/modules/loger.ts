@@ -2,6 +2,11 @@ export class Loger {
   
   constructor() { }
 
+  /** Vypíše do konzole zprávu.
+   * @param msg Obsah logu
+   * @param type Typ logu
+   * @param important Zvíraznění logu (error je vždy zvírazněn)
+   */
   public log(msg: string, type?: 'info' | 'database' | 'warning' | 'error', important?: boolean) {
     const info = 'color: blue;';
     const database = 'color: green;';

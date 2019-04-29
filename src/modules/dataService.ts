@@ -18,6 +18,9 @@ export class DataService {
     });
   }
 
+  /** Vrátí query pro vyhledání hrdiny v tabulce raid_heroes
+   * @param hero název hrdiny
+   */
   public getQueryFindHero(hero: string): string {
     const query = `SELECT * FROM raid_heroes WHERE name LIKE '%${hero}%'`
     this.loger.log('query = ' + query, 'database');
@@ -25,6 +28,7 @@ export class DataService {
   }
 }
 
+/** Objekt odpovídající řádku v raid_heroes */
 export interface RaidHeroRow {
   id: number,
   faction: string,
