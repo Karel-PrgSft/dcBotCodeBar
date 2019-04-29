@@ -4,7 +4,6 @@ import { Message, TextChannel, RichEmbed } from "discord.js";
 import { Loger } from './loger';
 import { HelpCommand } from './commands/helpCommand'
 import { RaidCommand } from './commands/raidCommand'
-const Discord = require('discord.js');
 const { prefix } = require('../config.json');
 
 export class OnMessage {
