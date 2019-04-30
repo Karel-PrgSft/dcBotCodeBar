@@ -11,24 +11,23 @@ class OnMessage {
         if (!message.content.startsWith(prefix) || message.author.bot) {
             return;
         }
-        ;
         if (message.channel.type === 'dm') {
             message.author.send('Příkazy se dají použít pouze na servru.');
             return;
         }
         this.messageInfo(message);
         const args = message.content.slice(prefix.length).split(' ');
-        let command = args.shift().toLowerCase();
+        const command = args.shift().toLowerCase();
         this.loger.log(`Command > ${command}`);
         if (command === 'help') {
-            let help = new helpCommand_1.HelpCommand(message, args);
+            new helpCommand_1.HelpCommand(message, args);
             return;
         }
         if (command === 'raid') {
-            let raid = new raidCommand_1.RaidCommand(message, args);
+            new raidCommand_1.RaidCommand(message, args);
             return;
         }
-        let help = new helpCommand_1.HelpCommand(message);
+        const help = new helpCommand_1.HelpCommand(message);
         help.sendMsgHelp(help.getMsgType('help'), message, 'příkaz nerozpoznán! Zde je seznam příkazů.');
     }
     messageInfo(message) {

@@ -1,9 +1,9 @@
 ///<reference path="../../../node_modules/discord.js/typings/index.d.ts"/>
 
-import { Message, RichEmbed } from "discord.js";
+import { Message, RichEmbed } from 'discord.js';
 import { DataService, RaidHeroRow } from '../dataService';
 import { Loger } from '../loger';
-import { HelpCommand } from './helpCommand'
+import { HelpCommand } from './helpCommand';
 const Discord = require('discord.js');
 
 export class RaidCommand {
@@ -17,11 +17,6 @@ export class RaidCommand {
     if (args !== undefined) {
       let subCommand = args.shift();
       this.loger.log(`Command > raid > ${subCommand}`);
-      if (subCommand === undefined) {
-        let help = new HelpCommand(this.message);
-        help.sendMsgHelp(help.getMsgType('helpRaid'), this.message, 'Zde je seznam příkazů pro raid.');
-        return;
-      }
       if (subCommand === 'hero') {
         subCommand = args.shift();
         if (subCommand === undefined) {
@@ -32,9 +27,12 @@ export class RaidCommand {
         this.findHero(subCommand);
         return;
       }
-      let help = new HelpCommand(this.message);
-      help.sendMsgHelp(help.getMsgType('helpRaid'), this.message, 'příkaz nerozpoznán! Zde je seznam příkazů pro raid.');
-      return;
+      const helpMsg = new HelpCommand(this.message);
+      if (subCommand === undefined) {
+        helpMsg.sendMsgHelp(helpMsg.getMsgType('helpRaid'), this.message, 'Zde je seznam příkazů pro raid.');
+        return;
+      }
+      helpMsg.sendMsgHelp(helpMsg.getMsgType('helpRaid'), this.message, 'příkaz nerozpoznán! Zde je seznam příkazů pro raid.');
     }
   }
 
@@ -42,7 +40,7 @@ export class RaidCommand {
    * @param hero Název hrdiny
    */
   findHero(hero: string) {
-    let data = new DataService();
+    const data = new DataService();
     data.db.all(data.getQueryFindHero(hero), [], (err, rows: RaidHeroRow[]) => {
       if (err) {
         this.loger.log(err.message, 'error');
@@ -51,7 +49,7 @@ export class RaidCommand {
       }
       if (rows !== undefined) {
         if (rows.length > 1) {
-          let hrdinove: string = '';
+          let hrdinove = '';
           for (let i = 0; i < rows.length; i++) {
             hrdinove += rows[i].name + ', ';
           }
@@ -98,16 +96,16 @@ export class RaidCommand {
     switch (row.element) {
       case 'Magic':
         color = '#0000ff';
-        break
+        break;
       case 'Spirit':
         color = '#008000';
-        break
+        break;
       case 'Force':
         color = '#ff0000';
-        break
+        break;
       case 'Void':
         color = '#800080';
-        break
+        break;
     }
 
     const hero: RichEmbed = new Discord.RichEmbed();

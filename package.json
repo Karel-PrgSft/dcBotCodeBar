@@ -1,12 +1,11 @@
 {
     "name": "code_bar_bot",
-    "version": "0.1.1 - alfa",
+    "version": "0.1.1",
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "PerniCZek",
-    "license": "Copyright © 2019 FSB PerniCZek",
     "keywords": [],
     "description": "",
     "dependencies": {

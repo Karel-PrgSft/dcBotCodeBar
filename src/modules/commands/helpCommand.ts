@@ -1,6 +1,6 @@
 ///<reference path="../../../node_modules/discord.js/typings/index.d.ts"/>
 
-import { Message, RichEmbed } from "discord.js";
+import { Message, RichEmbed } from 'discord.js';
 import { Loger } from '../loger';
 const Discord = require('discord.js');
 const { prefix } = require('../../config.json');
@@ -14,7 +14,7 @@ export class HelpCommand {
     private args?: string[],
   ) {
     if (args !== undefined) {
-      let subCommand = args.shift();
+      const subCommand = args.shift();
       this.loger.log(`Command > help > ${subCommand}`);
       if (subCommand === 'raid') {
         this.sendMsgHelp(this.getMsgType('helpRaid'), this.message, 'zde je seznam příkazů pro raid.');
@@ -39,18 +39,18 @@ export class HelpCommand {
    * @returns Discord object RichEmbed (stylyzovaná zpráva)
    */
   public getMsgType(type: 'help' | 'helpRaid'): RichEmbed {
-    let msg: RichEmbed = new Discord.RichEmbed();
-    let prikazyZaklad = `
+    const msg: RichEmbed = new Discord.RichEmbed();
+    msg.setColor('#ff0000');
+    msg.setThumbnail('http://volimpivo.ba/wordpress/wp-content/uploads/2017/04/bordinos-beer-druthers.png');
+    msg.setTimestamp();
+    msg.setFooter('CODE BAR', 'http://volimpivo.ba/wordpress/wp-content/uploads/2017/04/bordinos-beer-druthers.png');
+
+    const prikazyZaklad = `
       '${prefix}help' - Zobrazí tuto nápovědu`;
 
-    let prikazyRaid = `
+    const prikazyRaid = `
       '${prefix}raid' - Vypíše seznam příkazů pro RAID Shadow Legends.
-      '${prefix}raid hero (název hrdiny)' - Vypíše hodnocení hrdiny.`
-
-    msg.setColor('#ff0000')
-    msg.setThumbnail('http://volimpivo.ba/wordpress/wp-content/uploads/2017/04/bordinos-beer-druthers.png')
-    msg.setTimestamp()
-    msg.setFooter('CODE BAR', 'http://volimpivo.ba/wordpress/wp-content/uploads/2017/04/bordinos-beer-druthers.png');
+      '${prefix}raid hero (název hrdiny)' - Vypíše hodnocení hrdiny.`;
 
     switch (type) {
       case 'help':

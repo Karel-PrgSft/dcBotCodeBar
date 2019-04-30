@@ -1,5 +1,5 @@
 export class Loger {
-  
+
   constructor() { }
 
   /** Vypíše do konzole zprávu.

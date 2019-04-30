@@ -1,9 +1,9 @@
 ///<reference path="../../node_modules/discord.js/typings/index.d.ts"/>
 
-import { Message, TextChannel, RichEmbed } from "discord.js";
+import { Message, TextChannel, RichEmbed } from 'discord.js';
 import { Loger } from './loger';
-import { HelpCommand } from './commands/helpCommand'
-import { RaidCommand } from './commands/raidCommand'
+import { HelpCommand } from './commands/helpCommand';
+import { RaidCommand } from './commands/raidCommand';
 const { prefix } = require('../config.json');
 
 export class OnMessage {
@@ -15,8 +15,8 @@ export class OnMessage {
   ) {
     // Pokračovat pouze pokud výraz začíná prefixem a není od BOTa
     if (!message.content.startsWith(prefix) || message.author.bot) {
-      return
-    };
+      return;
+    }
 
     // Ignore DM channels.
     if (message.channel.type === 'dm') {
@@ -29,22 +29,22 @@ export class OnMessage {
 
     // Získání commandu
     const args = message.content.slice(prefix.length).split(' ');
-    let command = args.shift().toLowerCase();
+    const command = args.shift().toLowerCase();
 
     // Vypisuje commandy
     this.loger.log(`Command > ${command}`);
 
     if (command === 'help') {
-      let help = new HelpCommand(message, args);
+      new HelpCommand(message, args);
       return;
     }
 
     if (command === 'raid') {
-      let raid = new RaidCommand(message, args);
+      new RaidCommand(message, args);
       return;
     }
 
-    let help = new HelpCommand(message);
+    const help = new HelpCommand(message);
     help.sendMsgHelp(help.getMsgType('help'), message, 'příkaz nerozpoznán! Zde je seznam příkazů.');
   }
 

@@ -12,11 +12,6 @@ class RaidCommand {
         if (args !== undefined) {
             let subCommand = args.shift();
             this.loger.log(`Command > raid > ${subCommand}`);
-            if (subCommand === undefined) {
-                let help = new helpCommand_1.HelpCommand(this.message);
-                help.sendMsgHelp(help.getMsgType('helpRaid'), this.message, 'Zde je seznam příkazů pro raid.');
-                return;
-            }
             if (subCommand === 'hero') {
                 subCommand = args.shift();
                 if (subCommand === undefined) {
@@ -27,13 +22,16 @@ class RaidCommand {
                 this.findHero(subCommand);
                 return;
             }
-            let help = new helpCommand_1.HelpCommand(this.message);
-            help.sendMsgHelp(help.getMsgType('helpRaid'), this.message, 'příkaz nerozpoznán! Zde je seznam příkazů pro raid.');
-            return;
+            const helpMsg = new helpCommand_1.HelpCommand(this.message);
+            if (subCommand === undefined) {
+                helpMsg.sendMsgHelp(helpMsg.getMsgType('helpRaid'), this.message, 'Zde je seznam příkazů pro raid.');
+                return;
+            }
+            helpMsg.sendMsgHelp(helpMsg.getMsgType('helpRaid'), this.message, 'příkaz nerozpoznán! Zde je seznam příkazů pro raid.');
         }
     }
     findHero(hero) {
-        let data = new dataService_1.DataService();
+        const data = new dataService_1.DataService();
         data.db.all(data.getQueryFindHero(hero), [], (err, rows) => {
             if (err) {
                 this.loger.log(err.message, 'error');

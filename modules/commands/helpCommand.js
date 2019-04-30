@@ -9,7 +9,7 @@ class HelpCommand {
         this.args = args;
         this.loger = new loger_1.Loger();
         if (args !== undefined) {
-            let subCommand = args.shift();
+            const subCommand = args.shift();
             this.loger.log(`Command > help > ${subCommand}`);
             if (subCommand === 'raid') {
                 this.sendMsgHelp(this.getMsgType('helpRaid'), this.message, 'zde je seznam příkazů pro raid.');
@@ -24,16 +24,16 @@ class HelpCommand {
         message.channel.send(msg);
     }
     getMsgType(type) {
-        let msg = new Discord.RichEmbed();
-        let prikazyZaklad = `
-      '${prefix}help' - Zobrazí tuto nápovědu`;
-        let prikazyRaid = `
-      '${prefix}raid' - Vypíše seznam příkazů pro RAID Shadow Legends.
-      '${prefix}raid hero (název hrdiny)' - Vypíše hodnocení hrdiny.`;
+        const msg = new Discord.RichEmbed();
         msg.setColor('#ff0000');
         msg.setThumbnail('http://volimpivo.ba/wordpress/wp-content/uploads/2017/04/bordinos-beer-druthers.png');
         msg.setTimestamp();
         msg.setFooter('CODE BAR', 'http://volimpivo.ba/wordpress/wp-content/uploads/2017/04/bordinos-beer-druthers.png');
+        const prikazyZaklad = `
+      '${prefix}help' - Zobrazí tuto nápovědu`;
+        const prikazyRaid = `
+      '${prefix}raid' - Vypíše seznam příkazů pro RAID Shadow Legends.
+      '${prefix}raid hero (název hrdiny)' - Vypíše hodnocení hrdiny.`;
         switch (type) {
             case 'help':
                 msg.addField('Základní příkazy', prikazyZaklad);
