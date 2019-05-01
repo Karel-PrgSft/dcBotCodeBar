@@ -13,6 +13,9 @@ class DataService {
                 this.loger.log('Připojen k db/codeBar.db', 'database');
             }
         });
+        this.db.on('close', () => {
+            this.loger.log('Spojení s DB uzavřeno.', 'database');
+        });
     }
     getQueryFindHero(hero) {
         const query = `SELECT * FROM raid_heroes WHERE name LIKE '%${hero}%'`;

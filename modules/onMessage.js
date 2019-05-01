@@ -1,38 +1,38 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const loger_1 = require("./loger");
-const helpCommand_1 = require("./commands/helpCommand");
+const command_1 = require("./commands/command");
 const raidCommand_1 = require("./commands/raidCommand");
 const { prefix } = require('../config.json');
 class OnMessage {
     constructor(message) {
         this.message = message;
         this.loger = new loger_1.Loger();
-        if (!message.content.startsWith(prefix) || message.author.bot) {
+        const messageContent = message.content.toLowerCase();
+        if (!messageContent.startsWith(prefix) || message.author.bot) {
             return;
         }
         if (message.channel.type === 'dm') {
             message.author.send('Příkazy se dají použít pouze na servru.');
             return;
         }
-        this.messageInfo(message);
-        const args = message.content.slice(prefix.length).split(' ');
+        this.messageInfo();
+        const args = messageContent.slice(prefix.length).split(' ');
         const command = args.shift().toLowerCase();
         this.loger.log(`Command > ${command}`);
         if (command === 'help') {
-            new helpCommand_1.HelpCommand(message, args);
+            new command_1.Command(message, args);
             return;
         }
         if (command === 'raid') {
             new raidCommand_1.RaidCommand(message, args);
             return;
         }
-        const help = new helpCommand_1.HelpCommand(message);
-        help.sendMsgHelp(help.getMsgType('help'), message, 'příkaz nerozpoznán! Zde je seznam příkazů.');
+        new command_1.Command(message, null, true);
     }
-    messageInfo(message) {
-        const textChannel = message.channel;
-        const msg = `Message:\nAutor   > ${message.author.username} - (${message.author.id})\nServer  > ${message.guild.name} - (${message.guild.id})\nChannel > ${textChannel.name} - (${textChannel.id})\nMessage > (${message.id}) - "${message.content}"`;
+    messageInfo() {
+        const textChannel = this.message.channel;
+        const msg = `Message:\nAutor   > ${this.message.author.username} - (${this.message.author.id})\nServer  > ${this.message.guild.name} - (${this.message.guild.id})\nChannel > ${textChannel.name} - (${textChannel.id})\nMessage > (${this.message.id}) - "${this.message.content}"`;
         this.loger.log(msg);
     }
 }

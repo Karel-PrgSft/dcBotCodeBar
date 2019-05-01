@@ -2,7 +2,7 @@
 
 import { Message, TextChannel, RichEmbed } from 'discord.js';
 import { Loger } from './loger';
-import { HelpCommand } from './commands/helpCommand';
+import { Command } from './commands/command';
 import { RaidCommand } from './commands/raidCommand';
 const { prefix } = require('../config.json');
 
@@ -13,8 +13,10 @@ export class OnMessage {
   constructor(
     private message: Message,
   ) {
+    const messageContent = message.content.toLowerCase();
+
     // Pokračovat pouze pokud výraz začíná prefixem a není od BOTa
-    if (!message.content.startsWith(prefix) || message.author.bot) {
+    if (!messageContent.startsWith(prefix) || message.author.bot) {
       return;
     }
 
@@ -25,17 +27,17 @@ export class OnMessage {
     }
 
     // Vypisuje všechny zprávy na servrech, které prošli přes podmínky ^
-    this.messageInfo(message);
+    this.messageInfo();
 
     // Získání commandu
-    const args = message.content.slice(prefix.length).split(' ');
+    const args = messageContent.slice(prefix.length).split(' ');
     const command = args.shift().toLowerCase();
 
     // Vypisuje commandy
     this.loger.log(`Command > ${command}`);
 
     if (command === 'help') {
-      new HelpCommand(message, args);
+      new Command(message, args);
       return;
     }
 
@@ -44,16 +46,13 @@ export class OnMessage {
       return;
     }
 
-    const help = new HelpCommand(message);
-    help.sendMsgHelp(help.getMsgType('help'), message, 'příkaz nerozpoznán! Zde je seznam příkazů.');
+    new Command(message, null, true);
   }
 
-  /** Vypíše do konzole informace o zprávě
-   * @param message discord message object
-   */
-  messageInfo(message: Message): void {
-    const textChannel = <TextChannel>message.channel;
-    const msg = `Message:\nAutor   > ${message.author.username} - (${message.author.id})\nServer  > ${message.guild.name} - (${message.guild.id})\nChannel > ${textChannel.name} - (${textChannel.id})\nMessage > (${message.id}) - "${message.content}"`;
+  /** Vypíše do konzole informace o zprávě */
+  messageInfo(): void {
+    const textChannel = <TextChannel>this.message.channel;
+    const msg = `Message:\nAutor   > ${this.message.author.username} - (${this.message.author.id})\nServer  > ${this.message.guild.name} - (${this.message.guild.id})\nChannel > ${textChannel.name} - (${textChannel.id})\nMessage > (${this.message.id}) - "${this.message.content}"`;
     this.loger.log(msg);
   }
 }

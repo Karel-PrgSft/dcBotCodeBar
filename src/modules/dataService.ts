@@ -16,6 +16,9 @@ export class DataService {
         this.loger.log('Připojen k db/codeBar.db', 'database');
       }
     });
+    this.db.on('close', () => {
+      this.loger.log('Spojení s DB uzavřeno.', 'database');
+    });
   }
 
   /** Vrátí query pro vyhledání hrdiny v tabulce raid_heroes

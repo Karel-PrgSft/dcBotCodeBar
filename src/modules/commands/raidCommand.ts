@@ -3,22 +3,21 @@
 import { Message, RichEmbed } from 'discord.js';
 import { DataService, RaidHeroRow } from '../dataService';
 import { Loger } from '../loger';
-import { HelpCommand } from './helpCommand';
+import { Command } from './command';
 const Discord = require('discord.js');
 
-export class RaidCommand {
-
-  private loger = new Loger();
+export class RaidCommand extends Command {
 
   constructor(
-    private message: Message,
-    private args?: string[],
+    private messageR: Message,
+    private argsR?: string[],
   ) {
-    if (args !== undefined) {
-      let subCommand = args.shift();
+    super(messageR, argsR);
+    if (this.args !== undefined) {
+      let subCommand = this.args === null ? '' : this.args.shift();
       this.loger.log(`Command > raid > ${subCommand}`);
       if (subCommand === 'hero') {
-        subCommand = args.shift();
+        subCommand = this.args.shift();
         if (subCommand === undefined) {
           this.message.channel.send(`<@!${this.message.author.id}>, Zadej jméno hrdiny. např.: 'code~raid hero Executioner'`);
           return;
@@ -27,19 +26,18 @@ export class RaidCommand {
         this.findHero(subCommand);
         return;
       }
-      const helpMsg = new HelpCommand(this.message);
       if (subCommand === undefined) {
-        helpMsg.sendMsgHelp(helpMsg.getMsgType('helpRaid'), this.message, 'Zde je seznam příkazů pro raid.');
+        this.sendMsgHelp(this.getMsgType('helpRaid'), this.message, 'Zde je seznam příkazů pro raid.');
         return;
       }
-      helpMsg.sendMsgHelp(helpMsg.getMsgType('helpRaid'), this.message, 'příkaz nerozpoznán! Zde je seznam příkazů pro raid.');
+      this.sendMsgHelp(this.getMsgType('helpRaid'), this.message, 'příkaz nerozpoznán! Zde je seznam příkazů pro raid.');
     }
   }
 
   /** Vyhledá hrdinu v DB
    * @param hero Název hrdiny
    */
-  findHero(hero: string) {
+  private findHero(hero: string): void {
     const data = new DataService();
     data.db.all(data.getQueryFindHero(hero), [], (err, rows: RaidHeroRow[]) => {
       if (err) {
@@ -58,7 +56,7 @@ export class RaidCommand {
           return;
         } else {
           this.loger.log('Nalezen hrdina: ' + rows[0].name, 'database');
-          this.sendHeroInfo(rows[0], this.message);
+          this.sendHeroInfo(rows[0]);
           return;
         }
       } else {
@@ -66,13 +64,14 @@ export class RaidCommand {
         this.message.channel.send(`<@!${this.message.author.id}>, Hrdinu '${hero}' jsem v databázi nenašel.`);
       }
     });
+    data.db.close();
   }
 
   /** Vypíše informace o hrdinovy
    * @param row řádek z tabulky raid_heroes
    * @param message discord Message object
    */
-  sendHeroInfo(row: RaidHeroRow, message: Message): void {
+  private sendHeroInfo(row: RaidHeroRow): void {
     let heroInfo = '';
     heroInfo += `${row.faction} - ${row.element} - ${row.rarity} - ${row.typ}\n`;
     heroInfo += `${row.overal.length > 0 ? 'Overal: **' + row.overal + '**\n' : ''}`;
@@ -116,7 +115,7 @@ export class RaidCommand {
       .setTimestamp()
       .setFooter('CODE BAR', 'http://volimpivo.ba/wordpress/wp-content/uploads/2017/04/bordinos-beer-druthers.png');
 
-    message.channel.send(`<@!${message.author.id}>, Našel jsem hrdinu: ${row.name}`);
-    message.channel.send(hero);
+    this.message.channel.send(`<@!${this.message.author.id}>, Našel jsem hrdinu: ${row.name}`);
+    this.message.channel.send(hero);
   }
 }
