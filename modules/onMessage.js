@@ -32,8 +32,11 @@ class OnMessage {
     }
     messageInfo() {
         const textChannel = this.message.channel;
-        const msg = `Message:\nAutor   > ${this.message.author.username} - (${this.message.author.id})\nServer  > ${this.message.guild.name} - (${this.message.guild.id})\nChannel > ${textChannel.name} - (${textChannel.id})\nMessage > (${this.message.id}) - "${this.message.content}"`;
-        this.loger.log(msg);
+        this.loger.log(`Message:
+Autor   > ${this.message.author.username} - (${this.message.author.id})
+Server  > ${this.message.guild.name} - (${this.message.guild.id})
+Channel > ${textChannel.name} - (${textChannel.id})
+Message > (${this.message.id}) - "${this.message.content}"`);
     }
 }
 exports.OnMessage = OnMessage;
