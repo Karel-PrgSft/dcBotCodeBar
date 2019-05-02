@@ -7,7 +7,7 @@ const { token } = require('./config.json');
 const client: Client = new Discord.Client();
 
 client.on('ready', () => {
-  client.user.setGame('code~help');
+  client.user.setActivity('code~help', {type: 'PLAYING'});
   console.log('>>> Code Bar BOT started! <<<');
 });
 
