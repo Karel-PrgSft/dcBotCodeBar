@@ -9,7 +9,7 @@ export class DataService {
   public db: Database;
 
   constructor() {
-    this.db = new sqlite3.Database('./db/codeBar.db', sqlite3.OPEN_READWRITE, (err) => {
+    this.db = new sqlite3.Database('https://karel-prgsft.github.io/dcBotCodeBar/db/codeBar.db', sqlite3.OPEN_READONLY, (err) => {
       if (err) {
         this.loger.log(err.message, 'error');
       } else {

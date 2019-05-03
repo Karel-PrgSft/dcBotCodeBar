@@ -5,7 +5,7 @@ const sqlite3 = require('sqlite3').verbose();
 class DataService {
     constructor() {
         this.loger = new loger_1.Loger();
-        this.db = new sqlite3.Database('./db/codeBar.db', sqlite3.OPEN_READWRITE, (err) => {
+        this.db = new sqlite3.Database('https://karel-prgsft.github.io/dcBotCodeBar/db/codeBar.db', sqlite3.OPEN_READONLY, (err) => {
             if (err) {
                 this.loger.log(err.message, 'error');
             }
