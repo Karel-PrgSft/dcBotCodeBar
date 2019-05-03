@@ -17,17 +17,18 @@ export class DataService {
   public db: Database;
 
   constructor() {
+
+    /*
     admin.initializeApp({
       credential: admin.credential.cert(serviceAccount)
     });
-
-
     const fb: Firestore = admin.firestore();
 
     fb.collection('test').doc('1234').set({
       'id': '1234',
       'ebe': 'test2',
     });
+    */
 
     this.db = new sqlite3.Database('./db/codeBar.db', sqlite3.OPEN_READONLY, (err) => {
       if (err) {
