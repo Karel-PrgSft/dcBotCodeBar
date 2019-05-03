@@ -13,7 +13,7 @@ class Command {
         this.ritchEmbed = new discord_js_1.RichEmbed();
         this.ritchEmbed
             .setColor('#ff0000')
-            .setThumbnail('https://raw.githubusercontent.com/Karel-PrgSft/dcBotCodeBar/master/src/images/test.png')
+            .setThumbnail('http://volimpivo.ba/wordpress/wp-content/uploads/2017/04/bordinos-beer-druthers.png')
             .setTimestamp()
             .setFooter('CODE BAR', 'http://volimpivo.ba/wordpress/wp-content/uploads/2017/04/bordinos-beer-druthers.png');
         if (send === true) {
