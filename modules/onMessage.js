@@ -21,7 +21,7 @@ class OnMessage {
         const command = args.shift().toLowerCase();
         this.loger.log(`Command > ${command}`);
         if (command === 'help') {
-            new command_1.Command(message, args);
+            new command_1.Command(message, args, true);
             return;
         }
         if (command === 'raid') {

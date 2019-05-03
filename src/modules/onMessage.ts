@@ -37,7 +37,7 @@ export class OnMessage {
     this.loger.log(`Command > ${command}`);
 
     if (command === 'help') {
-      new Command(message, args);
+      new Command(message, args, true);
       return;
     }
 

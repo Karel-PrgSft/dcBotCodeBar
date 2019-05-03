@@ -21,6 +21,7 @@ export class Command {
     this.ritchEmbed
       .setColor('#ff0000')
       .setThumbnail('http://volimpivo.ba/wordpress/wp-content/uploads/2017/04/bordinos-beer-druthers.png')
+      // .setThumbnail('attachment://test.png')
       .setTimestamp()
       .setFooter('CODE BAR', 'http://volimpivo.ba/wordpress/wp-content/uploads/2017/04/bordinos-beer-druthers.png');
 
@@ -40,6 +41,10 @@ export class Command {
     }
 
     if (subCommand === undefined) {
+      /*
+      const file = new Discord.Attachment('c:/Projekty/CodeBarBot/src/images/test.png');
+      this.message.channel.send({ files: [file], embed: this.getMsgType('help') });
+      */
       this.sendMsgHelp(this.getMsgType('help'));
       return;
     }
