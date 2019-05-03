@@ -20,7 +20,7 @@ export class Command {
     this.ritchEmbed = new RichEmbed();
     this.ritchEmbed
       .setColor('#ff0000')
-      .setThumbnail('https://raw.githubusercontent.com/Karel-PrgSft/dcBotCodeBar/master/src/images/test.png')
+      .setThumbnail('http://volimpivo.ba/wordpress/wp-content/uploads/2017/04/bordinos-beer-druthers.png')
       // .setThumbnail('attachment://test.png')
       .setTimestamp()
       .setFooter('CODE BAR', 'http://volimpivo.ba/wordpress/wp-content/uploads/2017/04/bordinos-beer-druthers.png');
