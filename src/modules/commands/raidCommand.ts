@@ -16,14 +16,14 @@ export class RaidCommand extends Command {
     super(messageR, argsR);
     if (this.args !== undefined) {
       let subCommand = this.args === null ? '' : this.args.shift();
-      this.loger.log(`Command > raid > ${subCommand}`);
+      this.utils.log(`Command > raid > ${subCommand}`);
       if (subCommand === 'hero') {
         subCommand = this.args.shift();
         if (subCommand === undefined) {
           this.message.channel.send(`<@!${this.message.author.id}>, Zadej jméno hrdiny. např.: 'code~raid hero Executioner'`);
           return;
         }
-        this.loger.log(`Command > raid > hero > ${subCommand}`);
+        this.utils.log(`Command > raid > hero > ${subCommand}`);
         this.findHero(subCommand);
         return;
       }
@@ -53,7 +53,7 @@ export class RaidCommand extends Command {
       console.log('Error getting documents', err);
     });
     if (rows.length === 1) {
-      this.loger.log('Nalezen hrdina: ' + rows[0].name, 'database');
+      this.utils.log('Nalezen hrdina: ' + rows[0].name, 'database');
       this.sendHeroInfo(rows[0]);
       return;
     } else if (rows.length > 1) {
@@ -62,10 +62,10 @@ export class RaidCommand extends Command {
         hrdinove += rows[i].name;
         if (i + 1 !== rows.length) { hrdinove += ', '; }
       }
-      this.loger.log(`Specifikuj hrdinu, nalezl jsem: ${hrdinove}`, 'database');
+      this.utils.log(`Specifikuj hrdinu, nalezl jsem: ${hrdinove}`, 'database');
       this.message.channel.send(`<@!${this.message.author.id}>, Specifikuj hrdinu, nalezl jsem: ${hrdinove}`);
     } else {
-      this.loger.log(`Hrdinu '${hero}' jsem v databázi nenašel.`, 'database');
+      this.utils.log(`Hrdinu '${hero}' jsem v databázi nenašel.`, 'database');
       this.message.channel.send(`<@!${this.message.author.id}>, Hrdinu '${hero}' jsem v databázi nenašel.`);
     }
   }

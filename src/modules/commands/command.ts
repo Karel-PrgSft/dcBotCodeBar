@@ -1,14 +1,12 @@
 ///<reference path="../../../node_modules/discord.js/typings/index.d.ts"/>
 
 import { Message, RichEmbed } from 'discord.js';
-import { Loger } from '../loger';
 import { Utils } from '../utils';
 const Discord = require('discord.js');
 require('dotenv/config');
 
 export class Command {
 
-  public loger: Loger;
   public utils: Utils;
   public ritchEmbed: RichEmbed;
   private prefix = process.env.PREFIX;
@@ -18,8 +16,6 @@ export class Command {
     public args?: string[],
     public send?: boolean,
   ) {
-    this.loger = new Loger();
-
     this.utils = new Utils();
 
     this.ritchEmbed = new RichEmbed();
@@ -38,7 +34,7 @@ export class Command {
   /** Vyhodnotí HELP command a pošle nápovědu. */
   private vyhodnotCommand() {
     const subCommand = this.args === null ? '' : this.args.shift();
-    this.loger.log(`Command > help > ${subCommand}`);
+    this.utils.log(`Command > help > ${subCommand}`);
 
     if (subCommand === 'raid') {
       this.sendMsgHelp(this.getMsgType('helpRaid'), 'zde je seznam příkazů pro raid.');

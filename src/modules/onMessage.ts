@@ -1,7 +1,7 @@
 ///<reference path="../../node_modules/discord.js/typings/index.d.ts"/>
 
 import { Message, TextChannel, RichEmbed } from 'discord.js';
-import { Loger } from './loger';
+import { Utils } from './utils';
 import { Command } from './commands/command';
 import { RaidCommand } from './commands/raidCommand';
 import { DataService } from './dataService';
@@ -9,7 +9,7 @@ require('dotenv/config');
 
 export class OnMessage {
 
-  private loger = new Loger();
+  private utils = new Utils();
   private prefix = process.env.PREFIX;
 
   constructor(
@@ -37,7 +37,7 @@ export class OnMessage {
     const command = args.shift().toLowerCase();
 
     // Vypisuje commandy
-    this.loger.log(`Command > ${command}`);
+    this.utils.log(`Command > ${command}`);
 
     if (command === 'help') {
       new Command(message, args, true);
@@ -55,7 +55,7 @@ export class OnMessage {
   /** Vypíše do konzole informace o zprávě */
   messageInfo(): void {
     const textChannel = <TextChannel>this.message.channel;
-    this.loger.log(`Message:
+    this.utils.log(`Message:
 Autor   > ${this.message.author.username} - (${this.message.author.id})
 Server  > ${this.message.guild.name} - (${this.message.guild.id})
 Channel > ${textChannel.name} - (${textChannel.id})

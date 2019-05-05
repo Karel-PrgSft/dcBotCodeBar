@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const loger_1 = require("./loger");
+const utils_1 = require("./utils");
 const sqlite3 = require('sqlite3').verbose();
 const firebase = require('firebase/app');
 const FielsValue = require('firebase-admin').firestore.FieldValue;
@@ -8,7 +8,7 @@ const admin = require('firebase-admin');
 const serviceAccount = require('../../serviceAccount.json');
 class DataService {
     constructor() {
-        this.loger = new loger_1.Loger();
+        this.utils = new utils_1.Utils();
         admin.initializeApp({
             credential: admin.credential.cert(serviceAccount)
         });

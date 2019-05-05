@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const loger_1 = require("./loger");
+const utils_1 = require("./utils");
 const command_1 = require("./commands/command");
 const raidCommand_1 = require("./commands/raidCommand");
 require('dotenv/config');
@@ -8,7 +8,7 @@ class OnMessage {
     constructor(ds, message) {
         this.ds = ds;
         this.message = message;
-        this.loger = new loger_1.Loger();
+        this.utils = new utils_1.Utils();
         this.prefix = process.env.PREFIX;
         const messageContent = message.content.toLowerCase();
         if (!messageContent.startsWith(this.prefix) || message.author.bot) {
@@ -21,7 +21,7 @@ class OnMessage {
         this.messageInfo();
         const args = messageContent.slice(this.prefix.length).split(' ');
         const command = args.shift().toLowerCase();
-        this.loger.log(`Command > ${command}`);
+        this.utils.log(`Command > ${command}`);
         if (command === 'help') {
             new command_1.Command(message, args, true);
             return;
@@ -34,7 +34,7 @@ class OnMessage {
     }
     messageInfo() {
         const textChannel = this.message.channel;
-        this.loger.log(`Message:
+        this.utils.log(`Message:
 Autor   > ${this.message.author.username} - (${this.message.author.id})
 Server  > ${this.message.guild.name} - (${this.message.guild.id})
 Channel > ${textChannel.name} - (${textChannel.id})

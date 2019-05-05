@@ -1,9 +1,9 @@
 ///<reference path="../node_modules/discord.js/typings/index.d.ts"/>
 
-import { OnMessage } from './modules/onMessage';
 import { Message, Client } from 'discord.js';
-const Discord = require('discord.js');
+import { OnMessage } from './modules/onMessage';
 import { DataService } from './modules/dataService';
+const Discord = require('discord.js');
 const client: Client = new Discord.Client();
 require('dotenv/config');
 

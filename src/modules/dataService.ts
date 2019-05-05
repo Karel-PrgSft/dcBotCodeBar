@@ -2,7 +2,7 @@
 ///<reference path="../../node_modules/firebase-admin/lib/index.d.ts"/>
 ///<reference path="../../node_modules/firebase/index.d.ts"/>
 
-import { Loger } from './loger';
+import { Utils } from './utils';
 import { sqlite3, Database } from 'sqlite3';
 import { Firestore, CollectionReference } from '@google-cloud/firestore';
 
@@ -13,7 +13,7 @@ const admin = require('firebase-admin');
 const serviceAccount = require('../../serviceAccount.json');
 
 export class DataService {
-  private loger = new Loger();
+  private utils = new Utils();
   public fb: Firestore;
   public rRaid_heroes: CollectionReference;
 
