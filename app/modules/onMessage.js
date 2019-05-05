@@ -3,13 +3,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const loger_1 = require("./loger");
 const command_1 = require("./commands/command");
 const raidCommand_1 = require("./commands/raidCommand");
-const { prefix } = require('../config.json');
+require('dotenv/config');
 class OnMessage {
-    constructor(message) {
+    constructor(ds, message) {
+        this.ds = ds;
         this.message = message;
         this.loger = new loger_1.Loger();
+        this.prefix = process.env.PREFIX;
         const messageContent = message.content.toLowerCase();
-        if (!messageContent.startsWith(prefix) || message.author.bot) {
+        if (!messageContent.startsWith(this.prefix) || message.author.bot) {
             return;
         }
         if (message.channel.type === 'dm') {
@@ -17,7 +19,7 @@ class OnMessage {
             return;
         }
         this.messageInfo();
-        const args = messageContent.slice(prefix.length).split(' ');
+        const args = messageContent.slice(this.prefix.length).split(' ');
         const command = args.shift().toLowerCase();
         this.loger.log(`Command > ${command}`);
         if (command === 'help') {
@@ -25,7 +27,7 @@ class OnMessage {
             return;
         }
         if (command === 'raid') {
-            new raidCommand_1.RaidCommand(message, args);
+            new raidCommand_1.RaidCommand(ds, message, args);
             return;
         }
         new command_1.Command(message, null, true);

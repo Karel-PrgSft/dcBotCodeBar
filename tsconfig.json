@@ -1,7 +1,7 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
-    "outDir": "",
+    "outDir": "app",
     "sourceMap": false,
     "declaration": false,
     "module": "commonjs",

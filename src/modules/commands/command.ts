@@ -2,13 +2,16 @@
 
 import { Message, RichEmbed } from 'discord.js';
 import { Loger } from '../loger';
+import { Utils } from '../utils';
 const Discord = require('discord.js');
-const { prefix } = require('../../config.json');
+require('dotenv/config');
 
 export class Command {
 
   public loger: Loger;
+  public utils: Utils;
   public ritchEmbed: RichEmbed;
+  private prefix = process.env.PREFIX;
 
   constructor(
     public message: Message,
@@ -16,6 +19,8 @@ export class Command {
     public send?: boolean,
   ) {
     this.loger = new Loger();
+
+    this.utils = new Utils();
 
     this.ritchEmbed = new RichEmbed();
     this.ritchEmbed
@@ -67,9 +72,9 @@ export class Command {
    */
   public getMsgType(type: 'help' | 'helpRaid'): RichEmbed {
     const msg: RichEmbed = new Discord.RichEmbed(this.ritchEmbed);
-    const prikazyZaklad = `'${prefix}help' - Zobrazí tuto nápovědu`;
-    const prikazyRaid = `'${prefix}raid' - Vypíše seznam příkazů pro RAID Shadow Legends.
-      '${prefix}raid hero (název hrdiny)' - Vypíše hodnocení hrdiny.`;
+    const prikazyZaklad = `'${this.prefix}help' - Zobrazí tuto nápovědu`;
+    const prikazyRaid = `'${this.prefix}raid' - Vypíše seznam příkazů pro RAID Shadow Legends.
+      '${this.prefix}raid hero (název hrdiny)' - Vypíše hodnocení hrdiny.`;
 
     switch (type) {
       case 'help':

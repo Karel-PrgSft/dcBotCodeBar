@@ -2,14 +2,17 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const loger_1 = require("../loger");
+const utils_1 = require("../utils");
 const Discord = require('discord.js');
-const { prefix } = require('../../config.json');
+require('dotenv/config');
 class Command {
     constructor(message, args, send) {
         this.message = message;
         this.args = args;
         this.send = send;
+        this.prefix = process.env.PREFIX;
         this.loger = new loger_1.Loger();
+        this.utils = new utils_1.Utils();
         this.ritchEmbed = new discord_js_1.RichEmbed();
         this.ritchEmbed
             .setColor('#ff0000')
@@ -39,9 +42,9 @@ class Command {
     }
     getMsgType(type) {
         const msg = new Discord.RichEmbed(this.ritchEmbed);
-        const prikazyZaklad = `'${prefix}help' - Zobrazí tuto nápovědu`;
-        const prikazyRaid = `'${prefix}raid' - Vypíše seznam příkazů pro RAID Shadow Legends.
-      '${prefix}raid hero (název hrdiny)' - Vypíše hodnocení hrdiny.`;
+        const prikazyZaklad = `'${this.prefix}help' - Zobrazí tuto nápovědu`;
+        const prikazyRaid = `'${this.prefix}raid' - Vypíše seznam příkazů pro RAID Shadow Legends.
+      '${this.prefix}raid hero (název hrdiny)' - Vypíše hodnocení hrdiny.`;
         switch (type) {
             case 'help':
                 msg

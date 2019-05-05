@@ -4,19 +4,22 @@ import { Message, TextChannel, RichEmbed } from 'discord.js';
 import { Loger } from './loger';
 import { Command } from './commands/command';
 import { RaidCommand } from './commands/raidCommand';
-const { prefix } = require('../config.json');
+import { DataService } from './dataService';
+require('dotenv/config');
 
 export class OnMessage {
 
   private loger = new Loger();
+  private prefix = process.env.PREFIX;
 
   constructor(
+    private ds: DataService,
     private message: Message,
   ) {
     const messageContent = message.content.toLowerCase();
 
     // Pokračovat pouze pokud výraz začíná prefixem a není od BOTa
-    if (!messageContent.startsWith(prefix) || message.author.bot) {
+    if (!messageContent.startsWith(this.prefix) || message.author.bot) {
       return;
     }
 
@@ -30,7 +33,7 @@ export class OnMessage {
     this.messageInfo();
 
     // Získání commandu
-    const args = messageContent.slice(prefix.length).split(' ');
+    const args = messageContent.slice(this.prefix.length).split(' ');
     const command = args.shift().toLowerCase();
 
     // Vypisuje commandy
@@ -42,7 +45,7 @@ export class OnMessage {
     }
 
     if (command === 'raid') {
-      new RaidCommand(message, args);
+      new RaidCommand(ds, message, args);
       return;
     }
 

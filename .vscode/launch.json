@@ -8,7 +8,7 @@
       "type": "node",
       "request": "launch",
       "name": "Start CodeBarBot",
-      "program": "${workspaceFolder}\\index.js",
+      "program": "${workspaceFolder}/app/index.js",
       "outFiles": [
         "${workspaceFolder}/**/*.js"
       ]
